@@ -1,1 +1,1 @@
-# react-front-to-back
+# React Github Finder (Udemy Project)
