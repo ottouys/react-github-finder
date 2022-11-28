@@ -1,35 +1,27 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/layout/Navbar';
-import Users from './components/users/Users';
-import axios from 'axios';
+import About from './components/pages/About';
 import './App.css';
+import Home from './components/pages/Home';
 
-class App extends Component{ 
-  state = {
-    users: [],
-    loading: false
-  }
+class App extends Component{   
+  render() {    
 
-  async componentDidMount() {
-
-    // console.log(process.env.REACT_APP_GITHUB_CLIENT_ID);
-    // console.log(process.env.REACT_APP_GITHUB_CLIENT_SECRET);
-
-    this.setState({ loading:true });
-
-    const res = await axios.get(`https://api.github.com/users?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&?client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`);
-
-    this.setState({ users:res.data, loading:false });
-  }
-
-  render() {       
     return (
-      <div className='App'>
-        <Navbar></Navbar>
-        <div className='container'>
-          <Users loading={this.state.loading} users={this.state.users}></Users>
-        </div>        
-      </div>
+      <Router>
+          <div className='App'>
+            <Navbar></Navbar>
+            <div className='container'>            
+            <Routes>              
+                <Route path='/' element={<Home  />} />
+                <Route path="/about" element={<About />}>
+              </Route>
+            </Routes>
+              
+            </div>        
+        </div>
+      </Router>
     );
   }  
 }
